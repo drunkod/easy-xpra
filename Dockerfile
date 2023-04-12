@@ -21,4 +21,5 @@ COPY run_in_xpra /usr/bin/run_in_xpra
 CMD ["run_in_xpra", "xterm -background white"]
 
 # https://mybyways.com/blog/running-linux-gui-applications-in-a-docker-container-using-xpra
-# work with https in chrome xdg-open http://localhost:10000/ in https://github.com/Xpra-org/xpra-html5 client
+# work with https codespaces server in chrome xdg-open http://localhost:10000/ in https://github.com/Xpra-org/xpra-html5 client
+# todo how work in local host without https
