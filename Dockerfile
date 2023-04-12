@@ -1,7 +1,12 @@
-FROM alpine:3
-MAINTAINER Nikolas Garofil "nikolas@garofil.be"
+FROM alpine:3.17
+LABEL Nikolas Garofil "nikolas@garofil.be"
 
-RUN apk add --no-cache --update xpra
+RUN apk update
+RUN apk add --no-cache --update py3-paramiko py3-cairo py3-netifaces py3-zeroconf 
+# py3-avahi
+RUN apk add --no-cache --update xpra xpra-openrc dbus-x11 xhost xpra-webclient
+
+RUN apk add --no-cache xterm
 RUN cp /etc/xpra/xorg.conf /etc/X11/xorg.conf.d/00_xpra.conf
 RUN echo "xvfb=Xorg" >> /etc/xpra/xpra.conf
 
@@ -12,3 +17,8 @@ ENV XPRA_PORT=$XPRA_PORT
 EXPOSE $XPRA_PORT
 
 COPY run_in_xpra /usr/bin/run_in_xpra
+
+CMD ["run_in_xpra", "xterm -background white"]
+
+# https://mybyways.com/blog/running-linux-gui-applications-in-a-docker-container-using-xpra
+# work with https in chrome xdg-open http://localhost:10000/ in https://github.com/Xpra-org/xpra-html5 client
